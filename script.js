@@ -11,19 +11,24 @@ let Time = 100;
 let isFinished = true;
 let start = true;
 
-
-function autoRefresh(){
+//Refreshing on title click
+function autoRefresh() {
     window.location = window.location.href;
 }
-
-function show(){
-    document.getElementById("form");
-    form.classList.toggle("show");
+//Navigation bar on mobile
+let btn = document.getElementById("drop")
+let form = document.getElementById("form");
+let isDown = false;
+btn.onclick = () => {
+    console.log("True")
+    form.classList.toggle("show")
 }
+
+
+
 
 
 //Movie fetching
-let form = document.querySelector("form");
 let movieName;
 let movies;
 let index = 100;
@@ -59,6 +64,7 @@ form.addEventListener("submit", (e) => {
     for (let j = 1; j < pageCount; j++) {
         movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
             .then(res => res.json())
+
             .then(res => {
                 const m = res.results.filter(item => item.media_type == 'movie');
                 const t = res.results.filter(item => item.media_type == 'tv');
@@ -135,13 +141,14 @@ form.addEventListener("submit", (e) => {
                 })
 
             })
+            .catch(error => console.error(error))
     }
     i = 1;
 
 })
 
 
-
+//Right and left arrow functions
 rightArrow.onmousedown = () => {
 
 

@@ -143,12 +143,12 @@ form {
         border: none;
         border-radius: 20px;
         text-align: start;
+        transition: all ease-in-out 500ms, outline ease-in-out 200ms;
         height: 100%;
-        transition: all ease-in-out 500ms;
         width: 30%;
 
         &:hover {
-            outline: double 5px red;
+            outline: double 5px var(--main-color);
         }
 
         &:focus {
@@ -170,12 +170,11 @@ form {
     }
 
     &>#search-btn {
-        transition: all ease-in-out 500ms;
         border: none;
         padding: 0.5rem 2rem;
         border-radius: 10px;
         cursor: pointer;
-        transition: background ease-in-out 500ms;
+        transition: background-color ease-in-out 500ms;
 
         &:hover {
             background-color: var(--main-color);
@@ -202,11 +201,11 @@ form {
 
 #site-title {
     color: var(--main-color);
-    border-width: 0%;
-    transition: border ease-in-out 500ms;
+    transition: border-width ease-in-out 300ms;
 
     &:hover {
         border-bottom: dashed white;
+        border-bottom-width: 5px;
     }
 }
 
@@ -229,12 +228,15 @@ form {
         width: 100%;
         height: auto;
     }
-
+    form.show{
+        top: 0rem;
+    }
     form {
         flex-direction: column;
         background-color: rgba(176, 224, 250, 0.498);
         height: fit-content;
         position: fixed;
+        top: -13rem;
         &>#search-bar {
             border: solid 1px black;
 
@@ -245,12 +247,7 @@ form {
         &>#drop{
             display: inline;
         }
-    }
-
-    form.show {
-        transition: all ease-in-out 500ms;
-        position: fixed;
-        top: -25vh;
         
     }
+   
 }
