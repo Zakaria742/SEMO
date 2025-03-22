@@ -12,9 +12,14 @@ let isFinished = true;
 let start = true;
 
 
+function autoRefresh(){
+    window.location = window.location.href;
+}
 
-
-
+function show(){
+    document.getElementById("form");
+    form.classList.toggle("show");
+}
 
 
 //Movie fetching
@@ -23,11 +28,12 @@ let movieName;
 let movies;
 let index = 100;
 let founded_results = document.getElementById("res").innerHTML
-let pageCount = 3;
+let pageCount = 2;
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let search = document.querySelector("input");
     movieName = search.value;
+    search.value = ""
     const options = {
         method: 'GET',
         headers: {
@@ -41,11 +47,12 @@ form.addEventListener("submit", (e) => {
     Movie.innerHTML = `<main class="info next" id="start">
             <section id="desc">
             <div>
-                <h1>{site-title}</h1>
-                <h3>{sub-title}</h3>
+                <h1>SEMO</h1>
+                <h3>A movie searcher website</h3>
             </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque odit soluta tenetur aut inventore, deleniti maxime, aspernatur debitis perferendis saepe possimus natus consequuntur sit dolor. Reiciendis obcaecati quibusdam optio repellendus?
-            Adipisci maxime explicabo obcaecati molestiae aperiam, similique cupiditate minus nihil? Architecto aliquam quasi eum nostrum eveniet. Soluta in ab veritatis fugiat enim. Odio quae natus cupiditate debitis. Iure, quisquam est!</p>
+            <p>This is just a simple project i've been working on on my free time, It's nothing mush but I hope you like it.
+                I used the <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website and pure html css and javascript.
+            </p>
             </section>
         </main>`
     index = 100;
