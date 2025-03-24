@@ -1,29 +1,29 @@
+import { rmSync } from "fs";
 import options from "./api_key.js";
 
 
 let Movie = document.getElementById("movies");
-let info = document.querySelectorAll(".info");
 let rightArrow = document.getElementById("right");
 let leftArrow = document.getElementById("left");
-let layer = document.getElementById("layer");
+let siteTitle = document.getElementById("site-title")
 
 var i = 0;
 let offset;
 let Time = 100;
 
 let isFinished = true;
-let start = true;
 
 //Refreshing on title click
 function autoRefresh() {
     window.location = window.location.href;
+    return;
 }
+siteTitle.addEventListener("click", autoRefresh);
+
 //Navigation bar on mobile
 let btn = document.getElementById("drop")
 let form = document.getElementById("form");
-let isDown = false;
 btn.onclick = () => {
-    console.log("True")
     form.classList.toggle("show")
 }
 
@@ -33,7 +33,7 @@ btn.onclick = () => {
 
 //Movie fetching
 let movieName;
-let movies;
+
 let index = 100;
 let founded_results = document.getElementById("res").innerHTML
 let pageCount = 2;
@@ -43,7 +43,7 @@ form.addEventListener("submit", (e) => {
     let search = document.querySelector("input");
     movieName = search.value;
     search.value = ""
-   
+
 
     let isAnime = false;
     let r = 0;
@@ -54,17 +54,28 @@ form.addEventListener("submit", (e) => {
                 <h3>A movie searcher website</h3>
             </div>
             <p>This is just a simple project i've been working on on my free time, It's nothing mush but I hope you like it.
-                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html css and javascript.
+                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript.
             </p>
             </section>
         </main>`
     index = 100;
     for (let j = 1; j < pageCount; j++) {
-        movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.desc`, options)
+        let movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.desc`, options)
             .then(res => res.json())
 
             .then(res => {
-                console.log(res.results);
+                
+                if (res.results.length == 0) {
+                    Movie.innerHTML = `<main class="info" id="start">
+            <section id="desc">
+            <div>
+                <img src="./images/exclamation-triangle-solid.png" alt="Error">
+                <h1>Movie or TV series not found</h1>
+            </div>
+            <p>Please make sure you entered the correct name</p>
+            </section>
+        </main>`
+                }
                 const m = res.results.filter(item => item.media_type == 'movie');
                 const t = res.results.filter(item => item.media_type == 'tv');
 
@@ -73,7 +84,12 @@ form.addEventListener("submit", (e) => {
 
                 t.forEach(element => {
                     const posterPath = element.poster_path;
-                    const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+                    let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+                    let scale = "1";
+                    if (posterPath == null) {
+                        imageUrl = "./images/ban-solid.png"
+                        scale = "0.07";
+                    }
                     let title = element.name;
                     let releaseDate = element.first_air_date;
                     let summary = element.overview;
@@ -91,7 +107,7 @@ form.addEventListener("submit", (e) => {
                         document.getElementById("res").innerHTML = ++r;
                         let movie =
                             `<main class="info" style="z-index:${index--}">
-                                <img src=${imageUrl} class="movie-poster">
+                                <img src=${imageUrl} class="movie-poster" style="scale:${scale}">
                                 <section id="desc">
                                 <div>
                                     <h1>${title}</h1>
@@ -107,7 +123,12 @@ form.addEventListener("submit", (e) => {
 
                 m.forEach(element => {
                     const posterPath = element.poster_path;
-                    const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+                    let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+                    let scale = "1";
+                    if (posterPath == null) {
+                        imageUrl = "./images/ban-solid.png"
+                        scale = "0.07"
+                    }
                     let title = element.title;
                     let releaseDate = element.release_date;
                     let summary = element.overview;
@@ -125,7 +146,7 @@ form.addEventListener("submit", (e) => {
                         document.getElementById("res").innerHTML = ++r;
                         let movie =
                             `<main class="info" style="z-index:${index--}">
-                                <img src=${imageUrl} class="movie-poster">
+                                <img src=${imageUrl} class="movie-poster" style="scale:${scale};">
                                 <section id="desc">
                                 <div>
                                     <h1>${title}</h1>
