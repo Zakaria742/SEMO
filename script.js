@@ -1,6 +1,5 @@
 import options from "./api_key.js";
 
-const apiKey = import.meta.env.VITE_API_KEY;  // Only works at build time
 fetch(`https://api.example.com?key=${apiKey}`);
 
 let Movie = document.getElementById("movies");
