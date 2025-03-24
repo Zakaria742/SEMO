@@ -1,4 +1,3 @@
-import { rmSync } from "fs";
 import options from "./api_key.js";
 
 
@@ -66,13 +65,13 @@ form.addEventListener("submit", (e) => {
             .then(res => {
                 
                 if (res.results.length == 0) {
-                    Movie.innerHTML = `<main class="info" id="start">
+                    Movie.innerHTML = `<main class="info" id="start" style="scale:0.6;">
             <section id="desc">
             <div>
                 <img src="./images/exclamation-triangle-solid.png" alt="Error">
                 <h1>Movie or TV series not found</h1>
             </div>
-            <p>Please make sure you entered the correct name</p>
+            <p style=" text-align: center;">Please make sure you entered the correct name</p>
             </section>
         </main>`
                 }
