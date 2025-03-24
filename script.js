@@ -63,7 +63,7 @@ form.addEventListener("submit", (e) => {
             .then(res => res.json())
 
             .then(res => {
-                console.log(res.results)
+                
                 if(res.results.length > 0){
                     resultsFound = true;
                 }
@@ -176,7 +176,7 @@ rightArrow.onmousedown = () => {
 
 
     if (Math.abs(i) < Movie.children.length - 1 && isFinished) {
-        console.log("i: ", i)
+        
 
         offset = 100;
         isFinished = false;
@@ -196,7 +196,6 @@ leftArrow.onmousedown = () => {
         setTimeout(() => {
 
             Movie.children[i].style.left = `${offset}rem`;
-            console.log("Left")
 
 
         }, Time)
