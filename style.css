@@ -52,12 +52,11 @@ a {
     color: white;
     width: 60px;
     background-color: var(--second-color);
-    opacity: 0;
     z-index: 996;
     cursor: pointer;
     left: 0;
     transition: opacity ease-in-out 500ms;
-
+    opacity: 0;
     &:hover {
         opacity: 1;
     }
@@ -86,7 +85,7 @@ a {
         padding : 2rem;
 
         &>div>h1 {
-            font-size: 8vw;
+            font-size: 6vw;
             font-family: 'Impact';
             font-weight: 100;
         }
@@ -190,7 +189,9 @@ form {
 
 
 
-
+span{
+    color: var(--main-color);
+}
 
 #site-title {
     color: var(--main-color);
@@ -202,12 +203,11 @@ form {
     }
 }
 
-@media (max-width:783px) {
+@media (max-width:764px) {
 
     .info{
         position: fixed;
         flex-direction: column;
-        border:solid 2px red;
         overflow-y: scroll;
         &>#desc {
             position: relative;
@@ -218,7 +218,7 @@ form {
             }
         &>.movie-poster {
             
-            scale: 0.6;
+            scale: 0.3;
         }
         }
 

@@ -35,7 +35,7 @@ let movieName;
 
 let index = 100;
 let founded_results = document.getElementById("res").innerHTML
-let pageCount = 2;
+let pageCount = 4;
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     form.classList.toggle("show");
@@ -52,19 +52,24 @@ form.addEventListener("submit", (e) => {
                 <h1>SEMO</h1>
                 <h3>A movie searcher website</h3>
             </div>
-            <p>This is just a simple project i've been working on on my free time, It's nothing mush but I hope you like it.
-                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript.
+            <p>This is just a simple project i've been working on on my free time, It's nothing much but I hope you like it.
+                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript.<span>You can click on the left and right side of the screen </span>to traverse the results after searching.
             </p>
             </section>
         </main>`
     index = 100;
+    let resultsFound = false;
     for (let j = 1; j < pageCount; j++) {
-        let movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.desc`, options)
+        let movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
             .then(res => res.json())
 
             .then(res => {
-                
-                if (res.results.length == 0) {
+                console.log(res.results)
+                if(res.results.length > 0){
+                    resultsFound = true;
+                }
+                if (res.results.length == 0 && !resultsFound) {
+                    resultsFound = false;
                     Movie.innerHTML = `<main class="info" id="start" style="scale:0.6;">
             <section id="desc">
             <div>
