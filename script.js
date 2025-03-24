@@ -1,6 +1,5 @@
 import options from "./api_key.js";
 
-fetch(`https://api.example.com?key=${apiKey}`);
 
 let Movie = document.getElementById("movies");
 let rightArrow = document.getElementById("right");
