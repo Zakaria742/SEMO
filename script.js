@@ -36,6 +36,7 @@ let founded_results = document.getElementById("res").innerHTML
 let pageCount = 2;
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    form.classList.toggle("show");
     let search = document.querySelector("input");
     movieName = search.value;
     search.value = ""
@@ -49,23 +50,24 @@ form.addEventListener("submit", (e) => {
 
     let isAnime = false;
     let r = 0;
-    Movie.innerHTML = `<main class="info next" id="start">
+    Movie.innerHTML = `<main class="info" id="start">
             <section id="desc">
             <div>
                 <h1>SEMO</h1>
                 <h3>A movie searcher website</h3>
             </div>
             <p>This is just a simple project i've been working on on my free time, It's nothing mush but I hope you like it.
-                I used the <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website and pure html css and javascript.
+                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html css and javascript.
             </p>
             </section>
         </main>`
     index = 100;
     for (let j = 1; j < pageCount; j++) {
-        movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
+        movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.desc`, options)
             .then(res => res.json())
 
             .then(res => {
+                console.log(res.results);
                 const m = res.results.filter(item => item.media_type == 'movie');
                 const t = res.results.filter(item => item.media_type == 'tv');
 
@@ -91,7 +93,7 @@ form.addEventListener("submit", (e) => {
                     if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
                         document.getElementById("res").innerHTML = ++r;
                         let movie =
-                            `<main class="info next" style="z-index:${index--}">
+                            `<main class="info" style="z-index:${index--}">
                                 <img src=${imageUrl} class="movie-poster">
                                 <section id="desc">
                                 <div>
@@ -125,7 +127,7 @@ form.addEventListener("submit", (e) => {
                     if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
                         document.getElementById("res").innerHTML = ++r;
                         let movie =
-                            `<main class="info next" style="z-index:${index--}">
+                            `<main class="info" style="z-index:${index--}">
                                 <img src=${imageUrl} class="movie-poster">
                                 <section id="desc">
                                 <div>
