@@ -1,6 +1,3 @@
-import options from "./api_key.js";
-
-
 let Movie = document.getElementById("movies");
 let rightArrow = document.getElementById("right");
 let leftArrow = document.getElementById("left");
@@ -58,8 +55,15 @@ form.addEventListener("submit", (e) => {
         </main>`
     index = 100;
     let resultsFound = false;
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzVjNDc2ZTcwODQ4MmJhZjljMmE4ZWIzMjYzYjdmMSIsIm5iZiI6MTc0MjQ2NjE1NC4xMDIwMDAyLCJzdWIiOiI2N2RiZWM2YThhZjQ1MmYzMGZlOWU3ZWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.HUZQvM3z9Yq7OfHisdS0GZmoacPwNfhEwYGe8kzvlCU'
+        }
+    };
     for (let j = 1; j < pageCount; j++) {
-        let movies = fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
+        fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
             .then(res => res.json())
 
             .then(res => {
