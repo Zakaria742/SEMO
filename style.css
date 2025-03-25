@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
+
 :root {
     --main-color: rgb(146, 191, 254);
     --second-color: rgba(69, 121, 242, 0.23);
@@ -13,7 +16,7 @@ html{
 }
 body {
 
-    font-family: 'Agency FB', 'impact';
+    font-family: "Agdasima", "Viga";
     
 }
 
@@ -86,13 +89,14 @@ a {
 
         &>div>h1 {
             font-size: 6vw;
-            font-family: 'Impact';
-            font-weight: 100;
+            font-family: "Viga";
+            font-weight: 700;
         }
 
         &>p {
             line-height: 2rem;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
+            font-weight: lighter;
             text-align: justify;
             
         }
@@ -114,7 +118,17 @@ a {
     
     &>#desc {
         scale: 1;
-        width: 50%;
+        width: fit-content;
+        &>div{
+            text-align: center;
+            &>h1{
+            font-size: 20vw;
+        }
+        &>p{
+            text-align: center;
+        }
+        }
+        
     }
 }
 
@@ -231,11 +245,11 @@ span{
     
     form.show{
         top: 0rem;
-        background-color: rgba(176, 224, 250, 0.689);
+        background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
     }
     form {
         flex-direction: column;
-        background-color: rgba(176, 224, 250, 0.205);
+        background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
         height: fit-content;
         position: fixed;
         top: -13rem;

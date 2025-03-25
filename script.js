@@ -49,7 +49,7 @@ form.addEventListener("submit", (e) => {
                 <h3>A movie searcher website</h3>
             </div>
             <p>This is just a simple project i've been working on on my free time, It's nothing much but I hope you like it.
-                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript.<span>You can click on the left and right side of the screen </span>to traverse the results after searching.
+                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript. <span>You can click on the left and right side of the screen </span>to traverse the results after searching.
             </p>
             </section>
         </main>`
