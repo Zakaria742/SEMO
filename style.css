@@ -11,13 +11,15 @@
     padding: 0;
     box-sizing: border-box;
 }
-html{
+
+html {
     background-color: black;
 }
+
 body {
 
     font-family: "Agdasima", "Viga";
-    
+
 }
 
 a {
@@ -60,6 +62,7 @@ a {
     left: 0;
     transition: opacity ease-in-out 500ms;
     opacity: 0;
+
     &:hover {
         opacity: 1;
     }
@@ -78,6 +81,7 @@ a {
     height: 100%;
     background-color: rgb(0, 0, 0);
     color: white;
+
     &>#desc {
         position: relative;
         display: flex;
@@ -85,7 +89,7 @@ a {
         justify-content: center;
         gap: 3rem;
         scale: .8;
-        padding : 2rem;
+        padding: 2rem;
 
         &>div>h1 {
             font-size: 6vw;
@@ -98,7 +102,7 @@ a {
             font-size: 1.2rem;
             font-weight: lighter;
             text-align: justify;
-            
+
         }
     }
 }
@@ -110,28 +114,58 @@ a {
     left: 0;
 
 }
+
 #start {
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 0rem 0rem;
-    
+
     &>#desc {
         scale: 1;
         width: fit-content;
-        &>div{
+        align-items: center;
+
+        &>div {
             text-align: center;
-            &>h1{
-            font-size: 20vw;
+            &>h1 {
+                font-size: 20vw;
+            }
         }
-        &>p{
-            text-align: center;
+        &>p {
+            width: 50%;
         }
-        }
-        
+
     }
 }
 
+#warning {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0rem 0rem;
+    overflow: hidden;
+
+    &>#desc {
+        scale: 1;
+        width: fit-content;
+        align-items: center;
+
+        &>div {
+            text-align: center;
+
+            &>h1 {
+                font-size: 10vw;
+            }
+        }
+        &>p{
+            font-size: 1.9rem;
+            font-weight: lighter;
+        }
+
+    }
+
+}
 
 form {
     width: 100%;
@@ -144,6 +178,7 @@ form {
     z-index: 998;
     padding: 1rem 0rem;
     transition: all ease-in-out 500ms;
+
     &>#search-bar {
         padding: 0.5rem 15vw 0.5rem 1rem;
         border: none;
@@ -194,7 +229,7 @@ form {
         color: var(--main-color)
     }
 
-    &>#drop{
+    &>#drop {
         display: none;
         padding: 0.5rem 2rem;
         border: none;
@@ -203,7 +238,7 @@ form {
 
 
 
-span{
+span {
     color: var(--main-color);
 }
 
@@ -211,6 +246,7 @@ span{
     color: var(--main-color);
     transition: border-width ease-in-out 300ms;
     height: 100%;
+
     &:hover {
         border-bottom: dashed white;
         border-bottom-width: 5px;
@@ -219,56 +255,63 @@ span{
 
 @media (max-width:764px) {
 
-    .info{
+    .info {
         position: fixed;
         flex-direction: column;
         overflow-y: scroll;
+
         &>#desc {
             position: relative;
-                background-color: black;
-                padding: 0rem 1rem 7rem 1rem;
-                scale: 1;
-            }
-        &>.movie-poster {
-            
-            scale: 0.3;
-        }
+            background-color: black;
+            padding: 0rem 1rem 7rem 1rem;
+            scale: 1;
         }
 
-    
-    #start{
-        &>#desc{
+        &>.movie-poster {
+
+            scale: 0.3;
+        }
+    }
+
+
+    #start {
+        &>#desc {
             width: 100%;
         }
     }
 
-    
-    form.show{
+
+    form.show {
         top: 0rem;
         background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
     }
+
     form {
         flex-direction: column;
         background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
         height: fit-content;
         position: fixed;
         top: -13rem;
-        
+
         &>#search-bar {
             border: solid 1px black;
             width: 50%;
+
             &:not(:focus) {
                 width: 10%;
                 opacity: 1;
-                & ~ #search-btn{
+
+                &~#search-btn {
                     opacity: 1;
                 }
             }
         }
-        &>#drop{
+
+        &>#drop {
             display: inline;
         }
-        &>h3{
+
+        &>h3 {
             bottom: 0.5rem;
         }
     }

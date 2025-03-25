@@ -62,8 +62,10 @@ form.addEventListener("submit", (e) => {
             Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzVjNDc2ZTcwODQ4MmJhZjljMmE4ZWIzMjYzYjdmMSIsIm5iZiI6MTc0MjQ2NjE1NC4xMDIwMDAyLCJzdWIiOiI2N2RiZWM2YThhZjQ1MmYzMGZlOWU3ZWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.HUZQvM3z9Yq7OfHisdS0GZmoacPwNfhEwYGe8kzvlCU'
         }
     };
+    let lang = navigator.language
+    console.log(lang);
     for (let j = 1; j < pageCount; j++) {
-        fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=en-US&page=${j}&sort_by=popularity.asc`, options)
+        fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=${lang}&page=${j}&sort_by=popularity.asc`, options)
             .then(res => res.json())
 
             .then(res => {
@@ -73,13 +75,13 @@ form.addEventListener("submit", (e) => {
                 }
                 if (res.results.length == 0 && !resultsFound) {
                     resultsFound = false;
-                    Movie.innerHTML = `<main class="info" id="start" style="scale:0.6;">
+                    Movie.innerHTML = `<main class="info" id="warning" style="scale:0.6;">
             <section id="desc">
             <div>
                 <img src="./images/exclamation-triangle-solid.png" alt="Error">
                 <h1>Movie or TV series not found</h1>
             </div>
-            <p style=" text-align: center;">Please make sure you entered the correct name</p>
+            <p>Please make sure you entered the correct name</p>
             </section>
         </main>`
                 }
@@ -170,6 +172,7 @@ form.addEventListener("submit", (e) => {
             })
             .catch(error => console.error(error))
     }
+
     i = 1;
 
 })
