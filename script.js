@@ -72,6 +72,7 @@ function interError(error, errorID) {
 //Fetching and displaying TV and Movies
 async function fetchMulti(movieName, lang, page) {
     try {
+        loading.classList.remove("hidden");
         const options = {
             method: 'GET',
             headers: {
@@ -89,6 +90,8 @@ async function fetchMulti(movieName, lang, page) {
     } catch (error) {
         console.error("There was an error fetching.");
         interError(error.message, -1)
+    }finally{
+        loading.classList.add("hidden");
     }
 }
 
@@ -98,7 +101,7 @@ function displayMuli(fetched) {
 
     let i = 0;
     let isAnime = false;
-    
+
     let resultsFound = false;
     const MT = fetched.results;
     const m = MT.filter(item => item.media_type == 'movie');
@@ -199,7 +202,7 @@ function displayMuli(fetched) {
         })
 
     }
-    
+
 
 
 
@@ -227,34 +230,33 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 //Right and left arrow functions
-rightArrow.onmousedown = () => {
+rightArrow.onmousedown = async () => {
 
 
-    if (Math.abs(i) < Movie.children.length - 1 && isFinished) {
+    if (Math.abs(i) < Movie.children.length - 1) {
 
 
         offset = 100;
-        isFinished = false;
         setTimeout(() => {
             Movie.children[i - 1].style.left = `${offset}vw`;
-        }, Time)
+        }, Time);
         i++;
-        isFinished = true;
+
+
     }
+    
+
 }
 
 leftArrow.onmousedown = () => {
 
-    if (Math.abs(i) > 0 && isFinished) {
-        isFinished = false;
+    if (Math.abs(i) > 0) {
         offset = 0;
         setTimeout(() => {
 
             Movie.children[i].style.left = `${offset}rem`;
 
-
         }, Time)
-        isFinished = true;
         i--;
     }
 
