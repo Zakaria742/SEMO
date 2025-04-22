@@ -10,10 +10,8 @@ var i = 0;
 let offset;
 let Time = 100;
 
-let isFinished = true;
 
 let index = 100;
-let pageCount = 3;
 
 let NbresFound = 0;
 //Navigation bar on mobile
@@ -230,8 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 //Right and left arrow functions
-rightArrow.onmousedown = async () => {
-
+rightArrow.onclick = () => {
 
     if (Math.abs(i) < Movie.children.length - 1) {
 
@@ -249,7 +246,7 @@ rightArrow.onmousedown = async () => {
 
 }
 
-leftArrow.onmousedown = () => {
+leftArrow.onclick = () => {
 
     if (Math.abs(i) > 0) {
         offset = 0;
