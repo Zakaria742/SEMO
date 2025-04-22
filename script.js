@@ -1,3 +1,4 @@
+
 let Movie = document.getElementById("movies");
 let rightArrow = document.getElementById("right");
 let leftArrow = document.getElementById("left");
@@ -140,7 +141,7 @@ function displayMuli(fetched) {
                 document.getElementById("res").innerHTML = ++NbresFound;
                 let tv =
                     `<main class="info" style="z-index:${index--}">
-                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale}">
+                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale}" alt=${title}-poster>
                                     <section id="desc">
                                     <div>
                                         <h1 class="mTitle">${title}</h1>
@@ -184,7 +185,7 @@ function displayMuli(fetched) {
                 document.getElementById("res").innerHTML = ++NbresFound;
                 let movie =
                     `<main class="info" style="z-index:${index--}">
-                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale};">
+                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale};" alt=${title}-poster>
                                     <section id="desc">
                                     <div>
                                         <h1 class="mTitle">${title}</h1>
