@@ -3,18 +3,16 @@ let rightArrow = document.getElementById("right");
 let leftArrow = document.getElementById("left");
 let siteTitle = document.getElementById("site-title")
 
+Movie.style.height = window.innerHeight;
+
 var i = 0;
 let offset;
 let Time = 100;
 
 let isFinished = true;
 
-//Refreshing on title click
-function autoRefresh() {
-    window.location = window.location.href;
-    return;
-}
-siteTitle.addEventListener("click", autoRefresh);
+let index = 100;
+let pageCount = 3;
 
 //Navigation bar on mobile
 let btn = document.getElementById("drop")
@@ -23,157 +21,203 @@ btn.onclick = () => {
     form.classList.toggle("show")
 }
 
+//Refreshing on title click
+function autoRefresh() {
+    window.location = window.location.href;
+    return;
+}
+siteTitle.addEventListener("click", autoRefresh);
 
-
-
-
-//Movie fetching
-let movieName;
-
-let index = 100;
-let founded_results = document.getElementById("res").innerHTML
-let pageCount = 4;
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    form.classList.toggle("show");
-    let search = document.querySelector("input");
-    movieName = search.value;
-    search.value = ""
-
-    let isAnime = false;
-    let r = 0;
-    Movie.innerHTML = `<main class="info" id="start">
-            <section id="desc">
-            <div>
-                <h1>SEMO</h1>
-                <h3>A movie searcher website</h3>
-            </div>
-            <p>This is just a simple project i've been working on on my free time, It's nothing much but I hope you like it.
-                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript. <span>You can click on the left and right side of the screen </span>to traverse the results after searching.
-            </p>
-            </section>
-        </main>`
-    index = 100;
-    let resultsFound = false;
-    const options = {
-        method: 'GET',
-        headers: {
-            accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzVjNDc2ZTcwODQ4MmJhZjljMmE4ZWIzMjYzYjdmMSIsIm5iZiI6MTc0MjQ2NjE1NC4xMDIwMDAyLCJzdWIiOiI2N2RiZWM2YThhZjQ1MmYzMGZlOWU3ZWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.HUZQvM3z9Yq7OfHisdS0GZmoacPwNfhEwYGe8kzvlCU'
-        }
-    };
-    let lang = navigator.language
-    console.log(lang);
-    for (let j = 1; j < pageCount; j++) {
-        fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=${lang}&page=${j}&sort_by=popularity.asc`, options)
-            .then(res => res.json())
-
-            .then(res => {
-                
-                if(res.results.length > 0){
-                    resultsFound = true;
-                }
-                if (res.results.length == 0 && !resultsFound) {
-                    resultsFound = false;
-                    Movie.innerHTML = `<main class="info" id="warning" style="scale:0.6;">
+//Error handling
+function interError(error, errorID) {
+    switch (errorID) {
+        case -1:
+            Movie.innerHTML = `<main class="info" id="error" style="scale:0.6;">
+        <section id="desc">
+        <div>
+            <img src="./images/exclamation-triangle-solid.png" alt="Error">
+            <h1>${error}</h1>
+        </div>
+        <p>Please check your internet connection and refresh the page</p>
+        </section>
+    </main>`
+            break;
+        case 0:
+            Movie.innerHTML = `<main class="info" id="error" style="scale:0.6;">
+        <section id="desc">
+        <div>
+            <img src="./images/exclamation-triangle-solid.png" alt="Error">
+            <h1>${error}</h1>
+        </div>
+        <p>Please make sure you entered the correct name</p>
+        </section>
+    </main>`
+            break;
+        case 1:
+            Movie.innerHTML = `<main class="info" id="error" style="scale:0.6;">
             <section id="desc">
             <div>
                 <img src="./images/exclamation-triangle-solid.png" alt="Error">
-                <h1>Movie or TV series not found</h1>
+                <h1>${error}</h1>
             </div>
-            <p>Please make sure you entered the correct name</p>
+            <p>Search bar field must be filled</p>
             </section>
         </main>`
-                }
-                const m = res.results.filter(item => item.media_type == 'movie');
-                const t = res.results.filter(item => item.media_type == 'tv');
-
-
-
-
-                t.forEach(element => {
-                    const posterPath = element.poster_path;
-                    let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
-                    let scale = "1";
-                    if (posterPath == null) {
-                        imageUrl = "./images/ban-solid.png"
-                        scale = "0.07";
-                    }
-                    let title = element.name;
-                    let releaseDate = element.first_air_date;
-                    let summary = element.overview;
-                    for (let k = 0; k < element.genre_ids.length; k++) {
-                        if (element.genre_ids[k] == 16) {
-                            isAnime = true;
-                            break;
-                        }
-                        else {
-                            isAnime = false;
-                        }
-
-                    }
-                    if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
-                        document.getElementById("res").innerHTML = ++r;
-                        let movie =
-                            `<main class="info" style="z-index:${index--}">
-                                <img src=${imageUrl} class="movie-poster" style="scale:${scale}">
-                                <section id="desc">
-                                <div>
-                                    <h1>${title}</h1>
-                                    <h3>${releaseDate}</h3>
-                                </div>
-                                <p>${summary}</p>
-                                </section>
-                            </main>`;
-                        Movie.innerHTML += movie;
-                    }
-
-                })
-
-                m.forEach(element => {
-                    const posterPath = element.poster_path;
-                    let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
-                    let scale = "1";
-                    if (posterPath == null) {
-                        imageUrl = "./images/ban-solid.png"
-                        scale = "0.07"
-                    }
-                    let title = element.title;
-                    let releaseDate = element.release_date;
-                    let summary = element.overview;
-                    for (let k = 0; k < element.genre_ids.length; k++) {
-                        if (element.genre_ids[k] == 16) {
-                            isAnime = true;
-                            break;
-                        } else {
-                            isAnime = false;
-                        }
-
-                    }
-
-                    if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
-                        document.getElementById("res").innerHTML = ++r;
-                        let movie =
-                            `<main class="info" style="z-index:${index--}">
-                                <img src=${imageUrl} class="movie-poster" style="scale:${scale};">
-                                <section id="desc">
-                                <div>
-                                    <h1>${title}</h1>
-                                    <h3>${releaseDate}</h3>
-                                </div>
-                                <p>${summary}</p>
-                                </section>
-                            </main>`;
-                        Movie.innerHTML += movie;
-                    }
-
-                })
-
-            })
-            .catch(error => console.error(error))
+            break;
     }
 
-    i = 1;
+}
+//Fetching and displaying TV and Movies
+async function fetchMulti(movieName, lang, page) {
+
+    try {
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzVjNDc2ZTcwODQ4MmJhZjljMmE4ZWIzMjYzYjdmMSIsIm5iZiI6MTc0MjQ2NjE1NC4xMDIwMDAyLCJzdWIiOiI2N2RiZWM2YThhZjQ1MmYzMGZlOWU3ZWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.HUZQvM3z9Yq7OfHisdS0GZmoacPwNfhEwYGe8kzvlCU'
+            }
+        };
+        const response = await fetch(`https://api.themoviedb.org/3/search/multi?query=${movieName}&include_adult=false&language=${lang}&page=${page}&sort_by=popularity.desc`, options);
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`)
+        }
+
+        const multi = await response.json();
+        displayMuli(multi);
+    } catch (error) {
+        console.error("There was an error fetching.");
+        interError(error.message, -1)
+    }
+}
+
+
+function displayMuli(fetched) {
+
+
+    let i = 0;
+    let isAnime = false;
+    let r = 0;
+    let resultsFound = false;
+    const MT = fetched.results;
+    const m = MT.filter(item => item.media_type == 'movie');
+    const t = MT.filter(item => item.media_type == 'tv');
+
+    if (MT.length > 0) {
+        resultsFound = true;
+    }
+    if (MT.length == 0 && !resultsFound) {
+        resultsFound = false;
+        interError("Movie or TV series not found", 0);
+
+    }
+
+    if (t.length != 0) {
+        t.forEach(element => {
+            const posterPath = element.poster_path;
+            let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+            let scale = "1";
+            if (posterPath == null) {
+                imageUrl = "./images/ban-solid.png"
+                scale = "0.07";
+            }
+            let title = element.name;
+            let releaseDate = element.first_air_date;
+            let summary = element.overview;
+            for (let k = 0; k < element.genre_ids.length; k++) {
+                if (element.genre_ids[k] == 16) {
+                    isAnime = true;
+                    break;
+                }
+                else {
+                    isAnime = false;
+                }
+
+            }
+            if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
+                document.getElementById("res").innerHTML = ++r;
+                let tv =
+                    `<main class="info" style="z-index:${index--}">
+                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale}">
+                                    <section id="desc">
+                                    <div>
+                                        <h1 class="mTitle">${title}</h1>
+                                        <h3>${releaseDate}</h3>
+                                    </div>
+                                    <p>${summary}</p>
+                                    </section>
+                                </main>`;
+                Movie.innerHTML += tv;
+            }
+
+        })
+    }
+
+    if (m.length != 0) {
+        m.forEach(element => {
+            const posterPath = element.poster_path;
+            let imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+            let scale = "1";
+            if (posterPath == null) {
+                imageUrl = "./images/ban-solid.png"
+                scale = "0.07"
+            }
+            let title = element.title;
+            let releaseDate = element.release_date;
+            let summary = element.overview;
+
+            //Is the media anime
+            for (let k = 0; k < element.genre_ids.length; k++) {
+                if (element.genre_ids[k] == 16) {
+                    isAnime = true;
+                    break;
+                } else {
+                    isAnime = false;
+                }
+
+            }
+
+            if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
+                document.getElementById("res").innerHTML = ++r;
+                let movie =
+                    `<main class="info" style="z-index:${index--}">
+                                    <img src=${imageUrl} class="movie-poster" style="scale:${scale};">
+                                    <section id="desc">
+                                    <div>
+                                        <h1 class="mTitle">${title}</h1>
+                                        <h3>${releaseDate}</h3>
+                                    </div>
+                                    <p>${summary}</p>
+                                    </section>
+                                </main>`;
+                Movie.innerHTML += movie;
+            }
+
+        })
+
+    }
+    i++;
+
+
+
+}
+
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    Movie.innerHTML = "";
+    form.classList.toggle("show");
+    let search = document.getElementById("search-bar");
+    let movieName = search.value.trim();
+    if (!movieName) {
+        interError("Name not found", 1)
+    }
+    search.value = "";
+
+        fetchMulti(movieName, navigator.language, 1)
+        fetchMulti(movieName, navigator.language, 2);
+    index = 100;
 
 })
 
@@ -183,7 +227,7 @@ rightArrow.onmousedown = () => {
 
 
     if (Math.abs(i) < Movie.children.length - 1 && isFinished) {
-        
+
 
         offset = 100;
         isFinished = false;

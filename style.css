@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Viga&display=swap');
 
 :root {
-    --main-color: rgb(146, 191, 254);
-    --second-color: rgba(69, 121, 242, 0.23);
+    --main-color: hsl(0, 0%, 100%);
+    --second-color: rgb(254 227 146);
 }
 
 * {
@@ -17,13 +17,12 @@ html {
 }
 
 body {
-
-    font-family: "Agdasima", "Viga";
-
+    font-family: "Agdasima", "Viga", "Agency FB", "Jersey 25";
+    overflow: hidden;
 }
 
 a {
-    color: var(--main-color);
+    color: var(--second-color);
     text-decoration: none;
     border-width: 0%;
     transition: border-width ease-in-out 500ms;
@@ -34,44 +33,45 @@ a {
     }
 }
 
+#movies{
+    overflow-x: hidden;
+    height: inherit;
+}
+
 #right {
     position: absolute;
     height: 100%;
-    color: white;
     width: 60px;
-    background-color: var(--second-color);
-    opacity: 0;
     z-index: 996;
     right: 0;
     cursor: pointer;
-    transition: opacity ease-in-out 500ms;
-
-    &:hover {
-        opacity: 1;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 3em;
 }
 
 #left {
     position: absolute;
     height: 100%;
-    color: white;
     width: 60px;
-    background-color: var(--second-color);
     z-index: 996;
     cursor: pointer;
     left: 0;
-    transition: opacity ease-in-out 500ms;
-    opacity: 0;
-
-    &:hover {
-        opacity: 1;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 3em;
 }
-
+.mTitle{
+    color: var(--main-color);
+}
 .info {
-    transition: left ease-in-out 1000ms;
+    transition: left ease-in-out 1500ms, top ease-in-out 1500ms;
     left: 0;
-    position: fixed;
+    position: absolute;
     opacity: 1;
     display: flex;
     flex-direction: row;
@@ -88,12 +88,10 @@ a {
         flex-direction: column;
         justify-content: center;
         gap: 3rem;
-        scale: .8;
-        padding: 2rem;
 
         &>div>h1 {
             font-size: 6vw;
-            font-family: "Viga";
+            /* font-family: "Viga"; */
             font-weight: 700;
         }
 
@@ -119,17 +117,17 @@ a {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 0rem 0rem;
+    padding: 4rem 0rem;
 
     &>#desc {
         scale: 1;
-        width: fit-content;
         align-items: center;
 
         &>div {
             text-align: center;
             &>h1 {
                 font-size: 20vw;
+                color: var(--main-color);
             }
         }
         &>p {
@@ -139,7 +137,7 @@ a {
     }
 }
 
-#warning {
+#error {
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -189,7 +187,7 @@ form {
         width: 30%;
 
         &:hover {
-            outline: double 5px var(--main-color);
+            outline: double 5px var(--second-color);
         }
 
         &:focus {
@@ -197,9 +195,7 @@ form {
         }
 
         &:not(:focus) {
-            width: 0%;
             border-radius: 50dvw;
-            padding: 0.5rem 2.5vw 0.5rem .5rem;
             opacity: .2;
 
             &~#search-btn {
@@ -218,20 +214,16 @@ form {
         transition: background-color ease-in-out 500ms;
 
         &:hover {
-            background-color: var(--main-color);
+            background-color: var(--second-color);
         }
     }
 
     &>h3 {
-        position: absolute;
-        margin-right: 2rem;
-        right: 0;
-        color: var(--main-color)
+        color: var(--second-color)
     }
 
     &>#drop {
         display: none;
-        padding: 0.5rem 2rem;
         border: none;
     }
 }
@@ -239,7 +231,9 @@ form {
 
 
 span {
-    color: var(--main-color);
+    color: var(--second-color);
+    font-weight: 900;
+    text-decoration: underline;
 }
 
 #site-title {
@@ -263,8 +257,7 @@ span {
         &>#desc {
             position: relative;
             background-color: black;
-            padding: 0rem 1rem 7rem 1rem;
-            scale: 1;
+            padding: 0rem 2rem;
         }
 
         &>.movie-poster {
@@ -283,12 +276,11 @@ span {
 
     form.show {
         top: 0rem;
-        background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
+        background-color: rgb(0, 0, 0);
     }
 
     form {
         flex-direction: column;
-        background-image: linear-gradient(90deg, rgba(176, 224, 250, 0.689), black);
         height: fit-content;
         position: fixed;
         top: -13rem;
@@ -298,7 +290,6 @@ span {
             width: 50%;
 
             &:not(:focus) {
-                width: 10%;
                 opacity: 1;
 
                 &~#search-btn {
@@ -308,7 +299,7 @@ span {
         }
 
         &>#drop {
-            display: inline;
+            display: inline-block;
         }
 
         &>h3 {

@@ -6,19 +6,19 @@
     <meta name="description" content="SEMO a simple movie searcher">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>SEMO</title>
 </head>
 
 <body>
-    <arrow id="right"></arrow>
+    <arrow id="right"><img src="images/arrow-right-solid.png" alt="" width="50"></arrow>
+    <arrow id="left"><img src="images/arrow-left-solid.png" alt="" width="50"></arrow>
     <form id="form">
         
         <h1 id="site-title">SEMO</h1>
         <input type="text" id="search-bar" name="search">
         <button type="submit" id="search-btn" for="search">Search !</button>
         <h3>results found : <span id="res">0</span></h3>
-        <i id="drop" class="fa fa-arrow-down"></i>
+        <img  src="images/ban-solid.png" id="drop" alt="" width="20">
     </form>
     <div id="movies">
         <main class="info next" id="start">
@@ -34,7 +34,6 @@
             </section>
         </main>
     </div>
-    <arrow id="left"></arrow>
 
 
     <script type="module" src="script.js"></script>
