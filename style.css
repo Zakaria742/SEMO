@@ -33,7 +33,7 @@ a {
     }
 }
 
-#movies{
+#movies {
     overflow-x: hidden;
     height: inherit;
 }
@@ -65,9 +65,55 @@ a {
     justify-content: center;
     padding-left: 3em;
 }
-.mTitle{
+
+.arrows{
+    width: 5vw;
+}
+
+#loading {
+    background-color: hsla(0, 0%, 100%, 0.158);
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity ease-out 500ms;
+}
+
+#loading.hidden{
+    opacity: 0;
+    transition: opacity ease-in 500ms;
+    visibility: hidden;
+}
+
+#loading-icon{
+    border: 10px solid white;
+    border-top: 10px solid var(--second-color);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+
+    animation: spin 1s linear infinite;
+    transition: all ease-in-out 1s;
+}
+
+@keyframes spin{
+    from{
+        rotate: 0deg;
+    }
+    to{
+        rotate: 360deg;
+    }
+}
+
+.mTitle {
     color: var(--main-color);
 }
+
 .info {
     transition: left ease-in-out 1500ms, top ease-in-out 1500ms;
     left: 0;
@@ -87,10 +133,10 @@ a {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 3rem;
+        padding: 0rem 1rem 2rem 1rem;
 
         &>div>h1 {
-            font-size: 6vw;
+            font-size: 4vw;
             /* font-family: "Viga"; */
             font-weight: 700;
         }
@@ -113,23 +159,24 @@ a {
 
 }
 
-#start {
+.start {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 4rem 0rem;
+    padding: 20vh 0rem 3rem 0rem;
 
     &>#desc {
-        scale: 1;
         align-items: center;
 
         &>div {
             text-align: center;
+
             &>h1 {
                 font-size: 20vw;
                 color: var(--main-color);
             }
         }
+
         &>p {
             width: 50%;
         }
@@ -156,7 +203,8 @@ a {
                 font-size: 10vw;
             }
         }
-        &>p{
+
+        &>p {
             font-size: 1.9rem;
             font-weight: lighter;
         }
@@ -254,10 +302,9 @@ span {
         flex-direction: column;
         overflow-y: scroll;
 
+        
         &>#desc {
             position: relative;
-            background-color: black;
-            padding: 0rem 2rem;
         }
 
         &>.movie-poster {
@@ -267,10 +314,10 @@ span {
     }
 
 
-    #start {
-        &>#desc {
+    .start {
+
             width: 100%;
-        }
+        
     }
 
 

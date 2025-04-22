@@ -1,7 +1,8 @@
 let Movie = document.getElementById("movies");
 let rightArrow = document.getElementById("right");
 let leftArrow = document.getElementById("left");
-let siteTitle = document.getElementById("site-title")
+let siteTitle = document.getElementById("site-title");
+let loading = document.getElementById("loading");
 
 Movie.style.height = window.innerHeight;
 
@@ -14,6 +15,7 @@ let isFinished = true;
 let index = 100;
 let pageCount = 3;
 
+let NbresFound = 0;
 //Navigation bar on mobile
 let btn = document.getElementById("drop")
 let form = document.getElementById("form");
@@ -69,7 +71,6 @@ function interError(error, errorID) {
 }
 //Fetching and displaying TV and Movies
 async function fetchMulti(movieName, lang, page) {
-
     try {
         const options = {
             method: 'GET',
@@ -83,7 +84,6 @@ async function fetchMulti(movieName, lang, page) {
         if (!response.ok) {
             throw new Error(`Error HTTP: ${response.status}`)
         }
-
         const multi = await response.json();
         displayMuli(multi);
     } catch (error) {
@@ -98,7 +98,7 @@ function displayMuli(fetched) {
 
     let i = 0;
     let isAnime = false;
-    let r = 0;
+    
     let resultsFound = false;
     const MT = fetched.results;
     const m = MT.filter(item => item.media_type == 'movie');
@@ -107,7 +107,7 @@ function displayMuli(fetched) {
     if (MT.length > 0) {
         resultsFound = true;
     }
-    if (MT.length == 0 && !resultsFound) {
+    else if (MT.length == 0 && !resultsFound) {
         resultsFound = false;
         interError("Movie or TV series not found", 0);
 
@@ -136,7 +136,7 @@ function displayMuli(fetched) {
 
             }
             if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
-                document.getElementById("res").innerHTML = ++r;
+                document.getElementById("res").innerHTML = ++NbresFound;
                 let tv =
                     `<main class="info" style="z-index:${index--}">
                                     <img src=${imageUrl} class="movie-poster" style="scale:${scale}">
@@ -149,6 +149,7 @@ function displayMuli(fetched) {
                                     </section>
                                 </main>`;
                 Movie.innerHTML += tv;
+                i++;
             }
 
         })
@@ -179,7 +180,7 @@ function displayMuli(fetched) {
             }
 
             if (isAnime || (element.vote_average > 3 && element.popularity > 2.2)) {
-                document.getElementById("res").innerHTML = ++r;
+                document.getElementById("res").innerHTML = ++NbresFound;
                 let movie =
                     `<main class="info" style="z-index:${index--}">
                                     <img src=${imageUrl} class="movie-poster" style="scale:${scale};">
@@ -192,35 +193,38 @@ function displayMuli(fetched) {
                                     </section>
                                 </main>`;
                 Movie.innerHTML += movie;
+                i++;
             }
 
         })
 
     }
-    i++;
+    
 
 
 
 }
-
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     Movie.innerHTML = "";
     form.classList.toggle("show");
     let search = document.getElementById("search-bar");
-    let movieName = search.value.trim();
-    if (!movieName) {
+    let mtName = search.value.trim();
+    if (!mtName) {
         interError("Name not found", 1)
     }
     search.value = "";
-
-        fetchMulti(movieName, navigator.language, 1)
-        fetchMulti(movieName, navigator.language, 2);
+    const lang = "en-US"
+    fetchMulti(mtName, lang, 1);
+    NbresFound = 0;
     index = 100;
 
 })
 
+document.addEventListener("DOMContentLoaded", () => {
+    loading.classList.add("hidden");
+})
 
 //Right and left arrow functions
 rightArrow.onmousedown = () => {

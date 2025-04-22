@@ -9,28 +9,35 @@
     <title>SEMO</title>
 </head>
 
-<body>
-    <arrow id="right"><img src="images/arrow-right-solid.png" alt="" width="50"></arrow>
-    <arrow id="left"><img src="images/arrow-left-solid.png" alt="" width="50"></arrow>
+<body >
+    <section id="loading">
+        <div id="loading-icon">
+        </div>
+    </section>
+    <arrow id="right"><img class="arrows" src="images/arrow-right-solid.png" alt="" width="50"></arrow>
+    <arrow id="left"><img class="arrows" src="images/arrow-left-solid.png" alt="" width="50"></arrow>
     <form id="form">
-        
+
         <h1 id="site-title">SEMO</h1>
         <input type="text" id="search-bar" name="search">
         <button type="submit" id="search-btn" for="search">Search !</button>
         <h3>results found : <span id="res">0</span></h3>
-        <img  src="images/ban-solid.png" id="drop" alt="" width="20">
+        <img src="images/ban-solid.png" id="drop" alt="" width="20">
     </form>
-    <div id="movies">
-        <main class="info next" id="start">
+    <div id="movies"> 
+        <main class="info next start">
             <section id="desc">
-            <div>
-                <h1>SEMO</h1>
-                <h3>A movie searcher website</h3>
-            </div>
-            <p>This is just a simple project i've been working on on my free time, It's nothing much but I hope you like it.
-                I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in order to make this website in pure html, css and javascript.
-                <span>You can click on the left and right side of the screen </span>to traverse the results after searching.
-            </p>
+                <div>
+                    <h1>SEMO</h1>
+                    <h3>A movie searcher website</h3>
+                </div>
+                <p>This is just a simple project i've been working on on my free time, It's nothing much but I hope you
+                    like it.
+                    I used <a href="https://www.themoviedb.org" target="_blank">TMDB</a> (The movie database) API in
+                    order to make this website in pure html, css and javascript.
+                    <span>You can click on the left and right side of the screen </span>to traverse the results after
+                    searching.
+                </p>
             </section>
         </main>
     </div>
