@@ -240,6 +240,7 @@ rightArrow.onmousedown = async () => {
         setTimeout(() => {
             Movie.children[i - 1].style.left = `${offset}vw`;
         }, Time);
+
         i++;
 
 

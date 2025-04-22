@@ -115,7 +115,7 @@ a {
 }
 
 .info {
-    transition: left ease-in-out 2000ms, top ease-in-out 2900ms;
+    transition: left ease-in-out 1500ms, top ease-in-out 1500ms;
     left: 0;
     position: absolute;
     opacity: 1;
